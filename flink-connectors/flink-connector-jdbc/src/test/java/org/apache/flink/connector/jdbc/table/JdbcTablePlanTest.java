@@ -19,9 +19,12 @@
 package org.apache.flink.connector.jdbc.table;
 
 import org.apache.flink.table.api.TableConfig;
+import org.apache.flink.table.api.TableResult;
 import org.apache.flink.table.planner.utils.StreamTableTestUtil;
 import org.apache.flink.table.planner.utils.TableTestBase;
 
+import org.apache.flink.types.Row;
+import org.apache.flink.util.CloseableIterator;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -57,5 +60,24 @@ public class JdbcTablePlanTest extends TableTestBase {
     @Test
     public void testLimitPushDown() {
         util.verifyExecPlan("SELECT id, time_col FROM jdbc LIMIT 3");
+    }
+
+    @Test
+    public void testMysqlCatalog() {
+        String sql =
+            "CREATE CATALOG mysql_catalog WITH('type' = 'jdbc','default-database' = 'flink_test','username' = 'root','password' = 'root','base-url' = 'jdbc:mysql://127.0.0.1:3306/')";
+        util.tableEnv().executeSql(sql);
+        String sql1 = "select * from mysql_catalog.`flink_test`.`testA` ";
+        //        util.tableEnv().useCatalog("my");
+        // util.tableEnv().useDatabase("data_sql");
+        TableResult tableResult3 = util.tableEnv().executeSql(sql1);
+        try (CloseableIterator<Row> it = tableResult3.collect()) {
+            while (it.hasNext()) {
+                Row row = it.next();
+                System.out.println("value=" + row.toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
