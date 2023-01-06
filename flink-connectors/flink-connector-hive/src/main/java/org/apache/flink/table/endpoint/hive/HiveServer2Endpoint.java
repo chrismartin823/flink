@@ -122,7 +122,7 @@ import java.util.concurrent.TimeUnit;
 import static org.apache.flink.configuration.ExecutionOptions.RUNTIME_MODE;
 import static org.apache.flink.table.api.config.TableConfigOptions.TABLE_DML_SYNC;
 import static org.apache.flink.table.api.config.TableConfigOptions.TABLE_SQL_DIALECT;
-import static org.apache.flink.table.endpoint.hive.HiveServer2EndpointVersion.HIVE_CLI_SERVICE_PROTOCOL_V10;
+import static org.apache.flink.table.endpoint.hive.HiveServer2EndpointVersion.HIVE_CLI_SERVICE_PROTOCOL_V9;
 import static org.apache.flink.table.endpoint.hive.util.HiveJdbcParameterUtils.getUsedDefaultDatabase;
 import static org.apache.flink.table.endpoint.hive.util.HiveJdbcParameterUtils.setVariables;
 import static org.apache.flink.table.endpoint.hive.util.OperationExecutorFactory.createGetCatalogsExecutor;
@@ -153,7 +153,7 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 public class HiveServer2Endpoint implements TCLIService.Iface, SqlGatewayEndpoint, Runnable {
 
     private static final Logger LOG = LoggerFactory.getLogger(HiveServer2Endpoint.class);
-    private static final HiveServer2EndpointVersion SERVER_VERSION = HIVE_CLI_SERVICE_PROTOCOL_V10;
+    private static final HiveServer2EndpointVersion SERVER_VERSION = HIVE_CLI_SERVICE_PROTOCOL_V9;
     private static final TStatus OK_STATUS = new TStatus(TStatusCode.SUCCESS_STATUS);
     private static final String UNSUPPORTED_ERROR_MESSAGE =
             "The HiveServer2 Endpoint currently doesn't support to %s.";

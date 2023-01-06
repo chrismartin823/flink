@@ -40,9 +40,9 @@ public enum HiveServer2EndpointVersion implements EndpointVersion {
 
     HIVE_CLI_SERVICE_PROTOCOL_V8(TProtocolVersion.HIVE_CLI_SERVICE_PROTOCOL_V8),
 
-    HIVE_CLI_SERVICE_PROTOCOL_V9(TProtocolVersion.HIVE_CLI_SERVICE_PROTOCOL_V9),
+        HIVE_CLI_SERVICE_PROTOCOL_V9(TProtocolVersion.HIVE_CLI_SERVICE_PROTOCOL_V9);
 
-    HIVE_CLI_SERVICE_PROTOCOL_V10(TProtocolVersion.HIVE_CLI_SERVICE_PROTOCOL_V10);
+    // HIVE_CLI_SERVICE_PROTOCOL_V10(TProtocolVersion.HIVE_CLI_SERVICE_PROTOCOL_V10);
 
     private final TProtocolVersion version;
 
@@ -74,8 +74,8 @@ public enum HiveServer2EndpointVersion implements EndpointVersion {
                 return HIVE_CLI_SERVICE_PROTOCOL_V8;
             case HIVE_CLI_SERVICE_PROTOCOL_V9:
                 return HIVE_CLI_SERVICE_PROTOCOL_V9;
-            case HIVE_CLI_SERVICE_PROTOCOL_V10:
-                return HIVE_CLI_SERVICE_PROTOCOL_V10;
+                //            case HIVE_CLI_SERVICE_PROTOCOL_V10:
+                //                return HIVE_CLI_SERVICE_PROTOCOL_V10;
             default:
                 throw new IllegalArgumentException(
                         String.format("Unknown TProtocolVersion: %s.", version));

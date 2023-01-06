@@ -17,7 +17,6 @@
 
 package org.apache.flink.table.module.hive;
 
-import org.apache.flink.table.HiveVersionTestUtil;
 import org.apache.flink.table.api.DataTypes;
 import org.apache.flink.table.api.TableEnvironment;
 import org.apache.flink.table.catalog.hive.HiveTestUtils;
@@ -38,8 +37,17 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static org.apache.flink.table.catalog.hive.client.HiveShimLoader.HIVE_VERSION_V1_0_1;
+import static org.apache.flink.table.catalog.hive.client.HiveShimLoader.HIVE_VERSION_V1_1_0;
+import static org.apache.flink.table.catalog.hive.client.HiveShimLoader.HIVE_VERSION_V1_2_1;
+import static org.apache.flink.table.catalog.hive.client.HiveShimLoader.HIVE_VERSION_V2_0_0;
+import static org.apache.flink.table.catalog.hive.client.HiveShimLoader.HIVE_VERSION_V2_1_1;
+import static org.apache.flink.table.catalog.hive.client.HiveShimLoader.HIVE_VERSION_V2_2_0;
+import static org.apache.flink.table.catalog.hive.client.HiveShimLoader.HIVE_VERSION_V2_3_4;
+import static org.apache.flink.table.catalog.hive.client.HiveShimLoader.HIVE_VERSION_V3_1_1;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
+import static org.junit.Assert.assertEquals;
 
 /** Test for {@link HiveModule}. */
 public class HiveModuleTest {
@@ -71,12 +79,33 @@ public class HiveModuleTest {
     }
 
     private void verifyNumBuiltInFunctions(String hiveVersion, HiveModule hiveModule) {
-        if (HiveVersionTestUtil.HIVE_310_OR_LATER) {
-            assertThat(hiveModule.listFunctions()).hasSize(297);
-        } else if (HiveVersionTestUtil.HIVE_230_OR_LATER) {
-            assertThat(hiveModule.listFunctions()).hasSize(277);
-        } else {
-            fail("Unknown test version " + hiveVersion);
+        switch (hiveVersion) {
+            case HIVE_VERSION_V1_0_1:
+                assertEquals(196, hiveModule.listFunctions().size());
+                break;
+            case HIVE_VERSION_V1_1_0:
+                assertEquals(201, hiveModule.listFunctions().size());
+                break;
+            case HIVE_VERSION_V1_2_1:
+                assertEquals(221, hiveModule.listFunctions().size());
+                break;
+            case HIVE_VERSION_V2_0_0:
+                assertEquals(232, hiveModule.listFunctions().size());
+                break;
+            case HIVE_VERSION_V2_1_1:
+                assertEquals(242, hiveModule.listFunctions().size());
+                break;
+            case HIVE_VERSION_V2_2_0:
+                assertEquals(257, hiveModule.listFunctions().size());
+                break;
+            case HIVE_VERSION_V2_3_4:
+                assertEquals(275, hiveModule.listFunctions().size());
+                break;
+            case HIVE_VERSION_V3_1_1:
+                assertEquals(294, hiveModule.listFunctions().size());
+                break;
+            default:
+                fail("Unknown test version " + hiveVersion);
         }
     }
 

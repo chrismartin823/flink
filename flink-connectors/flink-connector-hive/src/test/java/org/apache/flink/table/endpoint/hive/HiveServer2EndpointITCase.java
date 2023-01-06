@@ -801,7 +801,7 @@ public class HiveServer2EndpointITCase extends TestLogger {
                                 SessionEnvironment.newBuilder()
                                         .setSessionEndpointVersion(
                                                 HiveServer2EndpointVersion
-                                                        .HIVE_CLI_SERVICE_PROTOCOL_V10)
+                                                        .HIVE_CLI_SERVICE_PROTOCOL_V9)
                                         .build());
         CountDownLatch latch = new CountDownLatch(1);
         OperationHandle operationHandle =

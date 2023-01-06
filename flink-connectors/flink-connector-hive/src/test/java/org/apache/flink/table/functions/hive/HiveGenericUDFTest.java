@@ -50,8 +50,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static org.apache.flink.table.HiveVersionTestUtil.HIVE_230_OR_LATER;
-import static org.apache.flink.table.HiveVersionTestUtil.HIVE_310_OR_LATER;
+import static org.apache.flink.table.HiveVersionTestUtil.HIVE_110_OR_LATER;
+import static org.apache.flink.table.HiveVersionTestUtil.HIVE_120_OR_LATER;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /** Test for {@link HiveGenericUDF}. */
@@ -77,7 +77,7 @@ public class HiveGenericUDFTest {
 
     @Test
     public void testAddMonths() throws Exception {
-        Assume.assumeTrue(HIVE_230_OR_LATER);
+        Assume.assumeTrue(HIVE_110_OR_LATER);
         HiveGenericUDF udf =
                 init(
                         Class.forName("org.apache.hadoop.hive.ql.udf.generic.GenericUDFAddMonths"),
@@ -90,7 +90,7 @@ public class HiveGenericUDFTest {
 
     @Test
     public void testDateFormat() throws Exception {
-        Assume.assumeTrue(HIVE_310_OR_LATER);
+        Assume.assumeTrue(HIVE_120_OR_LATER);
         String constYear = "y";
         String constMonth = "M";
 

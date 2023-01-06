@@ -193,7 +193,7 @@ public class HiveDialectQueryITCase {
                                         + " all select /*+ mapjoin(dest) */ foo.x from foo join dest on foo.y = dest.y",
                                 "with cte as (select * from src) select * from cte",
                                 "select 1 / 0"));
-        if (HiveVersionTestUtil.HIVE_230_OR_LATER) {
+        if (HiveVersionTestUtil.HIVE_220_OR_LATER) {
             toRun.add(
                     "select weekofyear(current_timestamp()), dayofweek(current_timestamp()) from src limit 1");
         }
